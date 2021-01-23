@@ -1,0 +1,66 @@
+@keyframes announcement
+    from
+        width: 60px
+        border-radius:50%
+    to
+        width: 110px
+        border-radius:20px
+
+@keyframes announcement2
+    from
+        width: 110px
+        border-radius:20px
+    to
+        width: 60px
+        border-radius:50%
+@keyframes title
+    from
+        font-size:40px
+    to
+        font-size:50px
+@keyframes title2
+    from
+        font-size:50px
+    to
+        font-size:40px
+.header
+  width : 97%
+  height: 100px
+  margin : 0 auto
+  border-radius:20px
+  background-color : rgb(50,50,150)
+  position: relative
+  .announcement
+    position: absolute
+    right : 10px
+    margin: 0 10px
+    bottom: 5px
+    font-size: 25px
+    border: 1px solid rgb(50,50,70)
+    background-color: rgb(50,50,200)
+    width: 60px
+    text-align: center
+    border-radius:50%
+    animation-name: announcement2
+    animation-duration: 1s
+    -webkit-user-select: none
+    &:hover
+        animation-name: announcement
+        animation-duration: 1s
+        width: 110px
+        border-radius:20px
+    
+.title
+    -webkit-user-select: none
+    padding: 5px 0
+    font-size:40px
+    text-align: center
+    font-weight:'bold'
+    animation-name: title2
+    animation-duration: 1s
+    max-width: 99%
+    overflow-x: hidden
+    &:hover
+        animation-name: title
+        animation-duration: 1s
+        font-size:50px
