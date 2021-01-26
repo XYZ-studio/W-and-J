@@ -38,10 +38,9 @@
           <div class="title">{{i.Title}}</div>
 
           <div class="contenttext">
-            <div v-for="x in i.Content.split('\n')" :key="x">
-              {{x}}
-              <br/>
-            </div>
+
+              {{i.Content}}
+
           </div>
 
           <div class="contentimg" v-if="i.File !== null">
@@ -55,17 +54,21 @@
             時間:{{new Date(Number(i.Time)).toTimeString()}}
           </div>
           <div class="options">
+            
             <div class="leave_comments">
               <div class="text">
                 留言
               </div>
             </div>
-            <div :class="(!likes.includes(i.Id)) ? 'like': 'like1'" @click="like(i.Id)">
+
+            <div :class="(!likes.includes(i.Id)) ? 'like tooltip-test': 'like1 tooltip-test'" @click="like(i.Id)" 
+             data-toggle="tooltip" :title="`<h5>${i.Likenumber}個讚</h5>`">
               <div class="heart">
                 <div class="heart1"></div>
                 <div class="heart2"></div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -124,18 +127,15 @@ html,body,#WandJ,#app
   background-color : #131415
   font-family:'SentyTEA'
   color: #ffffff
+  max-width: 100%
+  &::-webkit-scrollbar
+    width: 15px
+    background-color: #2E3338
+    border-radius: 20px
+  &::-webkit-scrollbar-thumb
+    background-color: #202225
+    border-radius: 20px
 #schedule
   position: fixed
-  bottom: 10px
-  right: 10px
-  height: 40px
-  width: 200px
-  background-color: #625E5E
-  border-radius: 20px
-  #len
-    height: 100%
-    background-color:#ffffff
-    border-radius:20px
-
 
 </style>

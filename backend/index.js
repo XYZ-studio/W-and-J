@@ -34,7 +34,7 @@ const Loga = async(text) => {
     app.use(express.static("./public"))
 
 
-    await connection.execute("CREATE TABLE IF NOT EXISTS WandJ (Author Text, Time Text, Title Text, Content Text, File TEXT,Id Int)")
+    await connection.execute("CREATE TABLE IF NOT EXISTS WandJ (Author Text, Time Text, Title Text, Content Text, File TEXT, Id Int, Likenumber Int)")
 
     app.all("*", function(req, res, next) {
         //设置允许跨域的域名，*代表允许任意域名跨域
@@ -51,6 +51,11 @@ const Loga = async(text) => {
     });
 
     app.post("/api/add-paste", async(req, res) => {
+
+        if ((req.query.title && req.query.content) === undefined) {
+            res.send({ code: false, message: "not title or content" })
+        }
+
         if (req.query.title.length > 10) {
             res.send({ code: false, message: "title字太多了優" })
             return
@@ -84,7 +89,7 @@ const Loga = async(text) => {
                                 .execute(`SELECT COUNT(Title) FROM WandJ`)
                             let pastenumber = Number(rows[0]["COUNT(Title)"]) + 1
                             await connection.execute(
-                                "INSERT INTO WandJ(Author, Time, Title, Content, File, Id) VALUES(?,?,?,?,?,?)", [req.query.author, new Date().getTime(), req.query.title, req.query.content, filename, pastenumber])
+                                "INSERT INTO WandJ(Author, Time, Title, Content, File, Id, Likenumber) VALUES(?,?,?,?,?,?,?)", [req.query.author, new Date().getTime(), req.query.title, req.query.content, filename, pastenumber, 0])
                             res.send({ code: true, file: filename })
                         } else {
                             res.send({ code: false, message: "很像少打東西優" })
@@ -112,7 +117,7 @@ const Loga = async(text) => {
                     .execute(`SELECT COUNT(Title) FROM WandJ`)
                 let pastenumber = Number(rows[0]["COUNT(Title)"]) + 1
                 await connection.execute(
-                    "INSERT INTO WandJ(Author, Time, Title, Content, File, Id) VALUES(?,?,?,?,?,?)", [req.query.author, new Date().getTime(), req.query.title, req.query.content, filename, pastenumber])
+                    "INSERT INTO WandJ(Author, Time, Title, Content, File, Id, Likenumber) VALUES(?,?,?,?,?,?,?)", [req.query.author, new Date().getTime(), req.query.title, req.query.content, filename, pastenumber, 0])
                 res.send({ code: true, file: filename })
             } else {
                 res.send({ code: false, message: "很像少打東西優" })
@@ -136,6 +141,10 @@ const Loga = async(text) => {
         let [rows, fields] = await connection
             .execute(`SELECT COUNT(Title) FROM WandJ`)
         res.send({ "paste-quantity": rows[0]["COUNT(Title)"] })
+    })
+
+    app.get("/api/like", function(req, res){
+        
     })
 
     app.get("*", function(req, res) {

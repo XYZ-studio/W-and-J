@@ -4,10 +4,15 @@ import sleep from './sleep.js'
 
 export default async(Init) => {
     let url = document.URL.split("#")
+    await fetch("/api/paste-quantity", { mode: "cors" })
+        .then(async(req) => {
+            let json = await req.json()
+            Init.number = json["paste-quantity"]
+        })
     if (url.length === 2 && !isNaN(Number(url[1]))) {
         Init.switch = true
-        Init.announcement = false
-        Init.a = Number(url[1])
+        Init.a = Init.number - (Number(url[1]) - 1)
+        console.log(Init.a)
         Init.q = (Math.floor(Init.a / 10)) + ((Init.a % 10 !== 0) ? 1 : 0)
         await fetch(`/api/all-paste?q=0&a=${Init.q*10}`, { mode: "cors" })
             .then(async(req) => {
@@ -19,6 +24,7 @@ export default async(Init) => {
             })
 
     } else {
+        Init.announcement = true
         await fetch("/api/all-paste?q=0", { mode: "cors" })
             .then(async(req) => {
                 Init.pastes = await req.json()
@@ -44,28 +50,26 @@ export default async(Init) => {
 
     (async() => {
         while (1) {
+
             let pastearray = Init.pastes.map(x => x.Id)
             if (!Init.switch) {
-                fetch("/api/all-paste?q=0", { mode: "cors" })
+                await fetch("/api/all-paste?q=0", { mode: "cors" })
                     .then(async(req) => {
                         let json = await req.json()
                         for (let i = json.length - 1; i >= 0; i--) {
                             if (!pastearray.includes(json[i].Id)) {
                                 Init.pastes.unshift(json[i])
-                                Init.number++
+                                Init.number++;
                             }
                         }
                     })
             }
-            await sleep(5000)
+            $(function() { $("[data-toggle='tooltip']").tooltip({ html: true }); });
+            await sleep(3000)
         }
     })();
 
-    fetch("/api/paste-quantity", { mode: "cors" })
-        .then(async(req) => {
-            let json = await req.json()
-            Init.number = json["paste-quantity"]
-        })
+
 
     fetch("announcement.txt", { mode: "cors" })
         .then(async(req) => {

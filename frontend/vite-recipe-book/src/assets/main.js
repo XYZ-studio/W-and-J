@@ -19,7 +19,7 @@ export default {
             schedulelen: "width: 0px;",
             scheduleswitch: "bottom: -40px;",
             switch: false,
-            announcement: true,
+            announcement: false,
             announcementde: "opacity:1;",
             announcementText: "",
             a: 0,
@@ -81,8 +81,8 @@ export default {
         (async() => {
             for (let i = 0; i < 10; i++) {
                 let number = (this.a > this.number) ? this.number : this.a
+                console.log(number)
                 if (document.querySelector(`#WandJ > div.content > div.pastes > div:nth-child(${number})`) !== null) {
-                    console.log(document.querySelector(`#WandJ > div.content > div.pastes > div:nth-child(${number}`))
                     document.querySelector(`#WandJ > div.content > div.pastes > div:nth-child(${number})`).scrollIntoView()
                     break
                 }

@@ -1,3 +1,4 @@
 /backend/public/img/*
 /backend/node_modules
 /frontend/vite-recipe-book/node_modules
+/backend/logs/*

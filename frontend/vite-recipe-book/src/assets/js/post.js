@@ -14,6 +14,7 @@ export default (Post) => {
     }
     if (Post.text.length > 2000) {
         alert("內容超過2000字元摟")
+        return
     }
     if (!re(Post.text) && !re(Post.title)) {
         Post.switch = true

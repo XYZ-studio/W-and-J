@@ -1,8 +1,10 @@
+
+  
 @mixin likemixin
   display: inline-block
-  width: 15%
+  width: 100px
   height: 50px
-  margin: 0 50px
+  margin: 0 5%
   text-align: center
   border: 1px solid #999595
   border-radius: 20px
@@ -46,12 +48,20 @@
     padding-right: 10px
     font-size:20px
     width: 90%
-    border-radius:20px
+    border-radius:10px
     background-color: #2C3032
     outline: none
     caret-color:#ffffff
     color: #ffffff
     resize : none
+    &::-webkit-scrollbar
+      width: 10px
+      background-color: #2E3338
+      border-radius: 20px
+      margin: 5px
+    &::-webkit-scrollbar-thumb
+      background-color: #202225
+      border-radius: 20px
   input
     height: 30px
     margin: 10px 10px
@@ -86,9 +96,9 @@
     text-align: center
     .leave_comments
       display: inline-block
-      width: 15%
+      width: 100px
       height: 50px
-      margin: 0 50px
+      margin: 0 5%
       text-align: center
       border: 1px solid #999595
       border-radius: 20px
@@ -98,6 +108,7 @@
         margin: 0 auto
         margin-top: 5px
         display: table
+
     .like
       @include likemixin
       &:hover
@@ -106,6 +117,7 @@
           background-color: #1B1C1D
       .heart > .heart1,.heart2
         background-color: red
+
     .like1
       @include likemixin
       &:hover
@@ -118,11 +130,21 @@
 
 
 
-        
-
+    
 .contenttext
   margin: 0 20px
   font-size:30px
+  max-width: 100%
+  white-space: break-spaces
+  overflow-x: auto
+  &::-webkit-scrollbar
+    height: 10px
+    background-color: #2E3338
+    border-radius: 20px
+  &::-webkit-scrollbar-thumb
+    background-color: #202225
+    border-radius: 20px
+
 .contentimg
   max-width: 100%
   margin: 10px
