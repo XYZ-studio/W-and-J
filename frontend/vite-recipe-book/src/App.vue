@@ -1,98 +1,133 @@
 <template>
   <div id="WandJ">
-
     <div class="header">
-      <div class="title">
-        W and J靠北網
-      </div>
+      <div class="title">W and J靠北網</div>
 
       <div class="announcement" @click="openAnnouncement()">公告</div>
     </div>
 
     <div class="content">
-      <div class="add-paste" :style="divheigth">
-        
-        <textarea v-model="text" id="texts"
-        placeholder="你遇到的W and J的英勇事蹟" @input="inputtext()"
-        :style="textheigth"></textarea>
+      <div class="add-paste" >
+        <input v-model="title" placeholder="標題" />
 
-        <input v-model="title" placeholder="標題">
+        <input placeholder="暱稱" v-model="author" />
 
-        <input placeholder="暱稱" v-model="author">
+        <textarea
+          v-model="text"
+          id="texts"
+          placeholder="你遇到的W and J的英勇事蹟"
+          @input="inputtext()"
+          :style="textheigth"
+        ></textarea>
 
         <label class="btn btn-default btn-sm center-block btn-file file">
           <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-          <input type="file" style="display: none;" accept="image/png, image/jpeg">
+          <input
+            type="file"
+            style="display: none"
+            accept="image/png, image/jpeg"
+            multiple
+          />
         </label>
         <div class="button-container-3">
           <span class="mas">發文</span>
           <button type="button" name="Hover" @click="post">發文</button>
         </div>
 
-        <div class="paste-q">目前{{number}}篇文章</div>
-
+        <div class="paste-q">目前{{ number }}篇文章</div>
       </div>
 
       <div class="pastes">
         <div class="paste" v-for="i in pastes" :key="i">
-          <div class="title">{{i.Title}}</div>
+          <div class="title">{{ i.Title }}</div>
 
           <div class="contenttext">
-
-              {{i.Content}}
-
+            {{ i.Content }}
           </div>
 
-          <div class="contentimg" v-if="i.File !== null">
-            <img  :src="'/img/'+i.File">
+          <div
+            class="contentimg"
+            v-if="i.File !== '[]' && i.File !== null && i.File !== 'null'"
+          >
+          <div class="imgs-1" v-if="JSON.parse(i.File).length === 1">
+            <img :src="'/img/' + JSON.parse(i.File)[0]" />
           </div>
-          
-          <div class="author">
-            作者:{{i.Author}}
-            <br/>
-            <br/>
-            時間:{{new Date(Number(i.Time)).toTimeString()}}
-          </div>
-          <div class="options">
-            
-            <div class="leave_comments">
-              <div class="text">
-                留言
+          <div class="imgs-2" v-if="JSON.parse(i.File).length >= 2" >
+            <div v-for="x in imgs(i.File)" :key="x">
+
+              <div v-if="typeof(x) !== 'string'">
+
+                <div class="img">
+                  <div class="cimg">
+                    <img :src="'/img/' + x[0]">
+                  </div>
+                </div>
+
+                <div class="img">
+                  <div class="cimg">
+                    <img :src="'/img/' + x[1]">
+                  </div>
+                </div>
+              </div>
+
+              <div v-else>
+                <div class="imgone">
+                    <img :src="'/img/' + x">
+                </div>
               </div>
             </div>
+          </div>
+            
+          </div>
 
-            <div :class="(!likes.includes(i.Id)) ? 'like tooltip-test': 'like1 tooltip-test'" @click="like(i.Id)" 
-             data-toggle="tooltip" :title="`<h5>${i.Likenumber}個讚</h5>`">
+          <div class="author">
+            作者:{{ i.Author }}
+          </div>
+
+          <div class="time">
+            {{ new Date(Number(i.Time)).format("yyyy-MM-dd hh:mm:ss") }}
+          </div>
+
+          <div class="options">
+            <div class="leave_comments">
+              <div class="text">留言</div>
+            </div>
+
+            <div
+              :class="!likes.includes(i.Id) ? 'like tooltip-test' : 'like1 tooltip-test'"
+              @click="like(i.Id)"
+              data-toggle="tooltip"
+              :data-original-title="`<h5>${i.Likenumber}個讚</h5>`"
+            >
               <div class="heart">
                 <div class="heart1"></div>
                 <div class="heart2"></div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
     </div>
 
     <div id="schedule" :style="scheduleswitch">
       <div id="len" :style="schedulelen"></div>
     </div>
 
-    <div class="announcement-content" v-if="announcement" @click="closeAnnouncement()" :style="announcementde">
+    <div
+      class="announcement-content"
+      v-if="announcement"
+      @click="closeAnnouncement()"
+      :style="announcementde"
+    >
       <div id="content">
-
-        <div class="title">
-          公告
-        </div>
+        <div class="title">公告</div>
 
         <div id="text">
           <div v-for="i in announcementText.split('\n')" :key="i">
-            {{i}}
-            <br/>
+            {{ i }}
+            <br />
           </div>
         </div>
-
       </div>
     </div>
 
@@ -101,10 +136,8 @@
 </template>
 
 <script>
-import main from "./assets/main.js"
-export default main
-
-
+import main from "./assets/main.js";
+export default main;
 </script>
 
 <style lang="scss">
@@ -113,9 +146,9 @@ export default main
 
 <style lang="sass">
 
-@font-face 
+@font-face
   font-family: SentyTEA
-  src: url(./assets/SentyTEA-20190904.ttf) 
+  src: url(./assets/SentyTEA-20190904.ttf)
 @import "./assets/sass/content.sass"
 @import "./assets/sass/header.sass"
 @import "./assets/sass/announcement.sass"
@@ -137,5 +170,13 @@ html,body,#WandJ,#app
     border-radius: 20px
 #schedule
   position: fixed
-
+  width: 200px
+  height: 30px
+  right: 0
+  border-radius: 20px
+  background-color: rgb(100,100,100)
+  #len
+    background-color: rgb(200,200,200)
+    border-radius: 20px
+    height: 30px
 </style>

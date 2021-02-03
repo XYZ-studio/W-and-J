@@ -3,12 +3,13 @@ import init from './js/init.js'
 import sleep from './js/sleep.js'
 import leave_comments from '../components/leave_comments.vue'
 import likefun from './js/like.js'
+
+
 export default {
     name: 'App',
     data() {
         return {
             textheigth: "height: 50px;",
-            divheigth: "height: 350px;",
             filepath: "",
             author: "",
             pastes: [],
@@ -63,11 +64,9 @@ export default {
             let number = this.text.match(/\n/g)
             if (number !== null) {
                 this.textheigth = `height: ${number.length*29+50}px;`
-                this.divheigth = `height: ${number.length*29+350}px;`
             }
             if (this.text === "") {
                 this.textheigth = "height: 50px;"
-                this.divheigth = "height: 350px;"
             }
         },
         post() {
@@ -75,6 +74,18 @@ export default {
         },
         like(id) {
             likefun(this, id)
+        },
+        imgs(json) {
+            let x = []
+            let data = JSON.parse(json)
+            for (let i = 0; i < data.length; i += 2) {
+                if (data[i] !== undefined && data[i + 1] !== undefined)
+                    x.push([data[i], data[i + 1]])
+            }
+            if (x.length * 2 !== data.length) {
+                x.push(data[data.length - 1])
+            }
+            return x
         }
     },
     beforeMount() {

@@ -19,9 +19,16 @@ export default (Post) => {
     if (!re(Post.text) && !re(Post.title)) {
         Post.switch = true
         let author = (Post.author === "") ? "匿名發言者" : Post.author
-        let filename = (file.files[0] === undefined) ? null : file.files[0].name
         let xhr = new XMLHttpRequest();
-        xhr.open("post", `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&author=${author}&filename=${filename}`, true)
+        let formdata = new FormData()
+        let files = null
+        for (let i of file.files) {
+            console.log(i.name, i)
+            formdata.append(i.name, i)
+            files = true
+        }
+
+        xhr.open("post", `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&author=${author}&files=${files}`, true)
         xhr.onload = async(e) => {
             let json = JSON.parse(xhr.responseText)
             if (!json.code) {
@@ -36,8 +43,7 @@ export default (Post) => {
                 Post.text = ""
                 Post.title = ""
                 Post.author = ""
-                Post.number++
-                    file.value = ""
+                file.value = ""
                 Post.schedulelen = "width: 0px"
             }
             console.log(json)
@@ -56,7 +62,7 @@ export default (Post) => {
             Post.switch = false
         }
         Post.scheduleswitch = "bottom: 10px"
-        xhr.send(file.files[0])
+        xhr.send(formdata)
     } else {
         alert("請輸入內容跟標題")
     }

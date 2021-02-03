@@ -74,6 +74,8 @@
     caret-color:#ffffff
     color: #ffffff
   .paste-q
+    @media only screen and (max-width: 560px)
+      font-size: 10px
     position: absolute
     right : 10px
     margin: 0 10px
@@ -89,10 +91,10 @@
   background-color: #1B1C1D
   height: 100%
   box-shadow: 3px 3px 5px 6px #2B2C2D
-
+  position: relative
   .options
     width: 100%
-    height: 70px
+    height: 90px
     text-align: center
     .leave_comments
       display: inline-block
@@ -148,8 +150,58 @@
 .contentimg
   max-width: 100%
   margin: 10px
-  img
+  .imgs-1
     border-radius:20px
-    max-width: 96%
+    max-width: 95%
+    margin: 0 10px
+    img
+      width: 100%
+      border-radius:20px
+  .imgs-2
+    border-radius:20px
+    margin: 0 auto
+    text-align: center
+    .img
+      @media only screen and (max-width: 700px)
+        height: 200px
+      @media only screen and (max-width: 450px)
+        height: 150px
+
+      width: 47%
+      height: 400px
+      border-radius: 5px
+      margin: 0 3px
+      overflow: hidden
+      display: inline-block
+      position: relative
+      .cimg
+        height: 100%
+        position: absolute
+        left: 0
+        min-width: 100%
+        border-radius: 5px
+        img
+          position: relative
+          height: 100%
+          border-radius: 5px
+    .imgone
+      overflow: hidden
+      height: 400px
+      @media only screen and (max-width: 700px)
+        height: 200px
+      @media only screen and (max-width: 450px)
+        height: 150px
+      img
+        height: 100%
+        border-radius: 5px
+    
 .author
-  margin:10px 20px
+  margin:5px 20px
+  bottom: 0px
+  position: absolute
+  right: 0px
+.time
+  margin:5px 20px
+  bottom: 0px
+  position: absolute
+  left: 0px
