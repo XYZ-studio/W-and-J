@@ -1,0 +1,42 @@
+@keyframes message
+    0%
+        right: -200px
+    100%
+        right: 20px
+    
+    
+.messages
+    position: fixed
+    right: 0
+    bottom: 10px
+    width: 200px
+.message
+    position: relative
+    height: 50px
+    width: 100%
+    background-color: rgba(225,225,225,0.4)
+    margin-bottom: 10px
+    right: 20px
+    animation: message .5s
+.message-x
+    position: absolute
+    top: 1px
+    right: 1px
+    width: 15px
+    height: 15px
+.x
+    display: inline-block
+    width: 12px
+    height: 2px
+    background: #999
+    line-height: 0
+    font-size: 0
+    vertical-align: middle
+    -webkit-transform: rotate(45deg)
+.x:after
+    content: "/"
+    display: block
+    width: 12px
+    height: 2px
+    background: #999
+    -webkit-transform: rotate(-90deg)

@@ -9,15 +9,17 @@ export default (Post) => {
     }
 
     if (Post.title.length > 10) {
-        alert("標題字數超過10個字元瞜")
+        Post.addMessage("標題字數超過10個字元瞜")
         return
     }
     if (Post.text.length > 2000) {
-        alert("內容超過2000字元摟")
+        Post.addMessage("內容超過2000字元摟")
         return
     }
     if (!re(Post.text) && !re(Post.title)) {
+
         Post.switch = true
+        let id = Post.addMessage("上傳中", "download")
         let author = (Post.author === "") ? "匿名發言者" : Post.author
         let xhr = new XMLHttpRequest();
         let formdata = new FormData()
@@ -32,14 +34,9 @@ export default (Post) => {
         xhr.onload = async(e) => {
             let json = JSON.parse(xhr.responseText)
             if (!json.code) {
-                alert(json.message)
+                Post.addMessage(json.message)
             } else {
-                (async() => {
-                    for (let i = 10; i > -50; i -= 4) {
-                        Post.scheduleswitch = `bottom:${i}px;`
-                        await sleep(50)
-                    }
-                })();
+                Post.scheduleswitch = false
                 Post.text = ""
                 Post.title = ""
                 Post.author = ""
@@ -47,23 +44,21 @@ export default (Post) => {
                 Post.schedulelen = "width: 0px"
             }
             console.log(json)
+            Post.modMessage(id, "上傳完畢")
             Post.switch = false
         }
         xhr.upload.onprogress = (e) => {
-            Post.schedulelen = `width: ${(e.loaded / e.total)*200}px`
+            Post.schedulelen = `width: ${(e.loaded / e.total)*180}px`
         }
         xhr.onerror = async() => {
-            for (let i = 10; i > -50; i -= 4) {
-                Post.scheduleswitch = `bottom:${i}px;`
-                await sleep(50)
-            }
+            Post.scheduleswitch = false
             Post.schedulelen = "width: 0px"
-            alert("發文錯誤")
+            Post.modMessage(id, "上傳錯誤")
             Post.switch = false
         }
-        Post.scheduleswitch = "bottom: 10px"
+        Post.scheduleswitch = true
         xhr.send(formdata)
     } else {
-        alert("請輸入內容跟標題")
+        Post.addMessage("請輸入內容跟標題")
     }
 }

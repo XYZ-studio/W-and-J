@@ -18,48 +18,23 @@ export default {
             text: "",
             number: 0,
             schedulelen: "width: 0px;",
-            scheduleswitch: "bottom: -40px;",
+            scheduleswitch: false,
             switch: false,
             announcement: false,
             announcementde: "opacity:1;",
             announcementText: "",
             a: 0,
             annswtich: false,
-            likes: []
+            likes: [],
+            messages: [],
+            messagenumber: 0
         }
     },
     components: {
         leave_comments
     },
     methods: {
-        closeAnnouncement() {
-            if (!this.annswtich) {
-                (async() => {
-                    this.annswtich = true
-                    for (let i = 1; i >= 0; i -= 0.05) {
-                        this.announcementde = `opacity:${i};`
-                        await sleep(50)
-                    }
-                    this.announcement = false
-                    this.annswtich = false
-                })();
-            }
 
-        },
-        openAnnouncement() {
-            if (!this.annswtich) {
-                (async() => {
-                    this.annswtich = true
-                    this.announcement = true
-                    for (let i = 0; i <= 1.05; i += 0.05) {
-                        this.announcementde = `opacity:${i};`
-                        await sleep(50)
-                    }
-                    this.annswtich = false
-                })();
-            }
-
-        },
         inputtext() {
             let number = this.text.match(/\n/g)
             if (number !== null) {
@@ -86,6 +61,26 @@ export default {
                 x.push(data[data.length - 1])
             }
             return x
+        },
+        addMessage(message, type = "message") {
+            let id = this.messagenumber
+            this.messages.push({ "message": message, "id": id, "type": type })
+            this.messagenumber++
+                return id
+        },
+        rMessage(id) {
+            for (let i = 0; i < this.messages.length; i++) {
+                if (this.messages[i].id === id) {
+                    this.messages.splice(i, 1);
+                }
+            }
+        },
+        modMessage(id, message) {
+            for (let i = 0; i < this.messages.length; i++) {
+                if (this.messages[i].id === id) {
+                    this.messages[i].message = message
+                }
+            }
         }
     },
     beforeMount() {

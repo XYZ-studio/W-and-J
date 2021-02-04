@@ -1,9 +1,10 @@
 <template>
   <div id="WandJ">
+
     <div class="header">
       <div class="title">W and J靠北網</div>
 
-      <div class="announcement" @click="openAnnouncement()">公告</div>
+      <div class="announcement" @click="announcement = true">公告</div>
     </div>
 
     <div class="content">
@@ -109,29 +110,56 @@
       </div>
     </div>
 
-    <div id="schedule" :style="scheduleswitch">
-      <div id="len" :style="schedulelen"></div>
-    </div>
+    <transition name="announcement">
+      <div
+        class="announcement-content"
+        v-if="announcement"
+        @click="announcement = false"
+      >
+        <div id="content">
+          <div class="title">公告</div>
 
-    <div
-      class="announcement-content"
-      v-if="announcement"
-      @click="closeAnnouncement()"
-      :style="announcementde"
-    >
-      <div id="content">
-        <div class="title">公告</div>
-
-        <div id="text">
-          <div v-for="i in announcementText.split('\n')" :key="i">
-            {{ i }}
-            <br />
+          <div id="text">
+            <div v-for="i in announcementText.split('\n')" :key="i">
+              {{ i }}
+              <br />
+            </div>
           </div>
         </div>
       </div>
+    </transition>
+
+    <div class="messages">
+
+        <div class="message" v-for="i in messages" :key="i">
+          <div class="message-x" @click="rMessage(i.id)">
+
+            <div class="x"></div>
+
+          </div>
+
+          <div v-if="i.type =='message'">
+            {{ i.message }}
+          </div>
+
+          <div v-else-if="i.type == 'download'">
+            <div style="text-align: center">
+              {{ i.message }}
+            </div>
+
+            <div class="schedule" v-if="i.message === '上傳中'">
+              <div id="len" :style="schedulelen">
+
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
     </div>
 
     <leave_comments></leave_comments>
+
   </div>
 </template>
 
@@ -149,11 +177,13 @@ export default main;
 @font-face
   font-family: SentyTEA
   src: url(./assets/SentyTEA-20190904.ttf)
+
 @import "./assets/sass/content.sass"
 @import "./assets/sass/header.sass"
 @import "./assets/sass/announcement.sass"
+@import "./assets/sass/messages.sass"
 
-html,body,#WandJ,#app
+html, body, #WandJ, #app
   width: 100%
   margin : 0px
   padding : 0px
@@ -168,15 +198,14 @@ html,body,#WandJ,#app
   &::-webkit-scrollbar-thumb
     background-color: #202225
     border-radius: 20px
-#schedule
-  position: fixed
-  width: 200px
-  height: 30px
-  right: 0
+.schedule
+  width: 180px
+  height: 5px
   border-radius: 20px
   background-color: rgb(100,100,100)
+  margin: 10px auto
   #len
     background-color: rgb(200,200,200)
     border-radius: 20px
-    height: 30px
+    height: 5px
 </style>
