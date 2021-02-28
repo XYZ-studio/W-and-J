@@ -30,9 +30,8 @@
   border-radius:20px
   background-color : rgb(50,50,150)
   position: relative
-  .announcement
+  .announcement,.login
     position: absolute
-    right : 10px
     margin: 0 10px
     bottom: 5px
     font-size: 25px
@@ -44,11 +43,20 @@
     animation-name: announcement2
     animation-duration: 1s
     -webkit-user-select: none
+    cursor: pointer
+    color: #ffffff
     &:hover
         animation-name: announcement
         animation-duration: 1s
         width: 110px
         border-radius:20px
+        color: #ffffff
+  .login
+      right: 10px
+  .announcement
+      left: 10px
+
+
     
 .title
     -webkit-user-select: none
@@ -64,3 +72,8 @@
         animation-name: title
         animation-duration: 1s
         font-size:50px
+    a
+        color: #ffffff
+        text-decoration: none
+        &:hover, &:link, &:visited, &:active
+            color: #ffffff

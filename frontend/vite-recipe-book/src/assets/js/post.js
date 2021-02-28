@@ -30,7 +30,11 @@ export default (Post) => {
             files = true
         }
 
-        xhr.open("post", `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&author=${author}&files=${files}`, true)
+        xhr.open("post",
+         `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&author=${author}&files=${files}`, 
+         true
+        )
+        xhr.setRequestHeader("Token", Post.token)
         xhr.onload = async(e) => {
             let json = JSON.parse(xhr.responseText)
             if (!json.code) {

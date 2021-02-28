@@ -3,7 +3,7 @@ import init from './js/init.js'
 import sleep from './js/sleep.js'
 import leave_comments from '../components/leave_comments.vue'
 import likefun from './js/like.js'
-
+import logOut from './js/log-out.js'
 
 export default {
     name: 'App',
@@ -27,7 +27,9 @@ export default {
             annswtich: false,
             likes: [],
             messages: [],
-            messagenumber: 0
+            messagenumber: 0,
+            login: false,
+            token:null
         }
     },
     components: {
@@ -63,10 +65,10 @@ export default {
             return x
         },
         addMessage(message, type = "message") {
-            let id = this.messagenumber
-            this.messages.push({ "message": message, "id": id, "type": type })
-            this.messagenumber++
-                return id
+            let id = this.messagenumber;
+            this.messages.push({ "message": message, "id": id, "type": type });
+            this.messagenumber++;
+            return id
         },
         rMessage(id) {
             for (let i = 0; i < this.messages.length; i++) {
@@ -81,6 +83,9 @@ export default {
                     this.messages[i].message = message
                 }
             }
+        },
+        logOut() {
+            logOut(this)
         }
     },
     beforeMount() {

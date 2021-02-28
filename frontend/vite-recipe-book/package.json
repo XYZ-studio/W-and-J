@@ -1,19 +1,19 @@
 {
-  "name": "vite-recipe-book",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build"
-  },
-  "dependencies": {
-    "bootstrap": "^4.6.0",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
-    "vue": "^3.0.4"
-  },
-  "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.4",
-    "sass": "^1.32.4",
-    "vite": "^1.0.0-rc.13"
-  }
+    "name": "vite-recipe-book",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "bootstrap": "^4.6.0",
+        "jquery": "^3.5.1",
+        "popper.js": "^1.16.1",
+        "vue": "^3.0.4"
+    },
+    "devDependencies": {
+        "@vue/compiler-sfc": "^3.0.4",
+        "sass": "^1.32.4",
+        "vite": "^1.0.0-rc.13"
+    }
 }

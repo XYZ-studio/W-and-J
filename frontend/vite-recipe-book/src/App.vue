@@ -3,12 +3,15 @@
 
     <div class="header">
       <div class="title">W and J靠北網</div>
-
+      <a href="/login">
+        <div class="login" v-if="!login">登入</div>
+      </a>
+      <div class="login" v-if="login" @click="logOut()">登出</div>
       <div class="announcement" @click="announcement = true">公告</div>
     </div>
 
     <div class="content">
-      <div class="add-paste" >
+      <div class="add-paste" v-if="login">
         <input v-model="title" placeholder="標題" />
 
         <input placeholder="暱稱" v-model="author" />
@@ -40,7 +43,7 @@
 
       <div class="pastes">
         <div class="paste" v-for="i in pastes" :key="i">
-          <div class="title">{{ i.Title }}</div>
+          <div class="title"><a :href="'/#'+i.Id">{{ i.Title }}</a></div>
 
           <div class="contenttext">
             {{ i.Content }}
@@ -185,9 +188,9 @@ export default main;
 
 html, body, #WandJ, #app
   width: 100%
-  margin : 0px
-  padding : 0px
-  background-color : #131415
+  margin: 0px
+  padding: 0px
+  background-color: #131415
   font-family:'SentyTEA'
   color: #ffffff
   max-width: 100%
@@ -198,6 +201,7 @@ html, body, #WandJ, #app
   &::-webkit-scrollbar-thumb
     background-color: #202225
     border-radius: 20px
+
 .schedule
   width: 180px
   height: 5px

@@ -1,8 +1,20 @@
 import sleep from './sleep.js'
-
+import login from './login.js'
 
 
 export default async(Init) => {
+    let session = await (await fetch("/api/sessions-data")).json()
+    if(session.code) {
+        let formdata = new FormData()
+        formdata.append("password", session.data.Password)
+        formdata.append("name", session.data.Account)
+        let logindata = await (await fetch("/api/login", { method: "POST", body: formdata })).json()
+        console.log(logindata)
+        if(logindata.code) {
+            Init.login = true
+            Init.token = logindata.token
+        }
+    }
     Date.prototype.format = function(fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
@@ -39,7 +51,6 @@ export default async(Init) => {
             })
 
     } else {
-        Init.announcement = true
         await fetch("/api/all-paste?q=0", { mode: "cors" })
             .then(async(req) => {
                 Init.pastes = await req.json()

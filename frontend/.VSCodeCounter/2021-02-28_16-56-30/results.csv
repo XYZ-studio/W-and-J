@@ -1,0 +1,31 @@
+"filename", "language", "Markdown", "HTML", "JavaScript", "CSS", "JSON", "Vue", "SCSS", "Sass", "comment", "blank", "total"
+"g:\程式開發\W and J\J-and-W\frontend\.VSCodeCounter\2021-02-28_16-38-18\details.md", "Markdown", 36, 0, 0, 0, 0, 0, 0, 0, 0, 6, 42
+"g:\程式開發\W and J\J-and-W\frontend\.VSCodeCounter\2021-02-28_16-38-18\results.md", "Markdown", 30, 0, 0, 0, 0, 0, 0, 0, 0, 7, 37
+"g:\程式開發\W and J\J-and-W\frontend\login\index.html", "HTML", 0, 19, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"g:\程式開發\W and J\J-and-W\frontend\login\main.css", "CSS", 0, 0, 0, 96, 0, 0, 0, 0, 0, 10, 106
+"g:\程式開發\W and J\J-and-W\frontend\login\main.js", "JavaScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 3, 18
+"g:\程式開發\W and J\J-and-W\frontend\login\router.js", "JavaScript", 0, 0, 89, 0, 0, 0, 0, 0, 0, 22, 111
+"g:\程式開發\W and J\J-and-W\frontend\login\routers\login.html", "HTML", 0, 9, 0, 0, 0, 0, 0, 0, 0, 1, 10
+"g:\程式開發\W and J\J-and-W\frontend\login\routers\sign-out.html", "HTML", 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\dist\_assets\index.ba0e9ed7.js", "JavaScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\dist\_assets\style.2837b567.css", "CSS", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\dist\index.html", "HTML", 0, 20, 0, 0, 0, 0, 0, 0, 0, 8, 28
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\index.html", "HTML", 0, 19, 0, 0, 0, 0, 0, 0, 0, 3, 22
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\package-lock.json", "JSON", 0, 0, 0, 0, 2827, 0, 0, 0, 0, 1, 2828
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\package.json", "JSON", 0, 0, 0, 0, 19, 0, 0, 0, 0, 1, 20
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\App.vue", "Vue", 0, 0, 0, 0, 0, 176, 0, 0, 0, 40, 216
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\js\init.js", "JavaScript", 0, 0, 97, 0, 0, 0, 0, 0, 0, 13, 110
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\js\like.js", "JavaScript", 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 15
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\js\login.js", "JavaScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\js\post.js", "JavaScript", 0, 0, 59, 0, 0, 0, 0, 0, 0, 5, 64
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\js\sleep.js", "JavaScript", 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 5
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\main.js", "JavaScript", 0, 0, 101, 0, 0, 0, 0, 0, 0, 3, 104
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\announcement.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 26, 0, 2, 28
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\button.scss", "SCSS", 0, 0, 0, 0, 0, 0, 186, 0, 0, 9, 195
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\content.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 193, 0, 18, 211
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\header.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 75, 0, 4, 79
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\leave_comments.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\assets\sass\messages.sass", "Sass", 0, 0, 0, 0, 0, 0, 0, 41, 0, 2, 43
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\components\leave_comments.vue", "Vue", 0, 0, 0, 0, 0, 12, 0, 0, 0, 3, 15
+"g:\程式開發\W and J\J-and-W\frontend\vite-recipe-book\src\main.js", "JavaScript", 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"Total", "-", 66, 77, 388, 97, 2846, 188, 186, 335, 0, 166, 4349
