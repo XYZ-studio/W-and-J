@@ -22,13 +22,19 @@
 
 
                     document.getElementById("buttons").addEventListener("click", e => {
+                        const name = document.getElementById("name").value
+                        const password = document.getElementById("password").value
+                        const fromdata = new FormData()
+
+                        if (name === '' || password === '') {
+                            alert("請填寫完整")
+                            return
+                        }
                         if (token === null) {
                             alert("請勾選驗證")
                             return
                         }
-                        const name = document.getElementById("name").value
-                        const password = document.getElementById("password").value
-                        const fromdata = new FormData()
+
 
                         fromdata.append("password", password)
                         fromdata.append("name", name)

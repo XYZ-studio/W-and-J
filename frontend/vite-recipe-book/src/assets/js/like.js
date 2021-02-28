@@ -5,19 +5,28 @@ export default async(like, id) => {
         return
     }
     if (!like.likes.includes(id)) {
-        like.likes.push(id)
-        like.pastes[number].Likenumber += 1
-        await (await fetch(`/api/like?m=a&id=${id}`, 
+
+
+        const content = await (await fetch(`/api/like?m=a&id=${id}`, 
             { mode: "cors", method: "POST", headers:{ Token: like.token } }
-        )).json()
-    } else {
-        let index = like.likes.indexOf(id);
-        if (index > -1) {
-            like.likes.splice(index, 1);
+        )).text()
+        if(content === "ok") {
+            like.likes.push(id)
+            like.pastes[number].Likenumber += 1
         }
-        like.pastes[number].Likenumber -= 1
-        await (await fetch(`/api/like?m=r&id=${id}`, 
+
+    } else {
+
+        const content = await (await fetch(`/api/like?m=r&id=${id}`, 
             { mode: "cors", method: "POST", headers:{ Token: like.token } }
-        )).json()
+        )).text()
+        if(content === "ok") {
+            let index = like.likes.indexOf(id);
+            if (index > -1) {
+                like.likes.splice(index, 1);
+            }
+            like.pastes[number].Likenumber -= 1
+        }
+
     }
 }
