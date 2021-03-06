@@ -1,6 +1,6 @@
 export default function logOut(logOut) {
     
-    fetch("/api/log-out").then(req => {
+    fetch("/api/sign-out").then(req => {
         return req.text()
     }).then(content => {
         if(content === "ok") {

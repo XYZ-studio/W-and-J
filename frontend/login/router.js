@@ -1,8 +1,6 @@
 
 (() => {
 
-
-
     var onloadCallback = function(response) {
         token = response
     }
@@ -11,6 +9,15 @@
         token = null
     }
 
+    const reloadrecaptcha = function() {
+        grecaptcha.render("g-recaptcha",
+        { 
+            callback: onloadCallback,
+            "expired-callback": unloadCallback,
+            "error-callback":unloadCallback 
+        })
+    }
+    
     const router = async() => {
         const routers = [
             {
@@ -35,7 +42,6 @@
                             return
                         }
 
-
                         fromdata.append("password", password)
                         fromdata.append("name", name)
                         fromdata.append("recaptcha", token)
@@ -45,36 +51,66 @@
                             return req.json()
                         }).then(json => {
                             console.log(json)
-                            location.pathname = "/"
+                            if(json.code) {
+                                location.pathname = "/"
+                            } else {
+                                alert("登入資訊錯誤")
+                                reloadrecaptcha()
+                            }
+                            
                         })
                         
                     })
 
-                    grecaptcha.render("g-recaptcha",
-                    { 
-                        callback: onloadCallback,
-                        "expired-callback": unloadCallback,
-                        "error-callback":unloadCallback 
-                    })
+                    reloadrecaptcha()
                 }
             },
             {
-                path :"/sign-out",
+                path :"/sign-up",
                 fun :async function() {
-                    return await (await fetch('/routers/sign-out.html')).text()
+                    return await (await fetch('/routers/sign-up.html')).text()
                 },
                 ready:function() {
-                    grecaptcha.render("g-recaptcha",
-                    { 
-                        callback: onloadCallback,
-                        "expired-callback": unloadCallback, 
-                        "error-callback":unloadCallback 
-                    })
-                    
-                    document.getElementById("buttons").addEventListener("click", e => {
-                        console.log(token)
 
+                    document.getElementById("buttons").addEventListener("click", e => {
+
+                        const name = document.getElementById("name").value
+                        const password = document.getElementById("password").value
+                        const email = document.getElementById("email").value
+                        const fromdata = new FormData()
+                        if (name === '' || password === '' || email === '') {
+                            alert("請填寫完整")
+                            return
+                        }
+                        if (token === null) {
+                            alert("請勾選驗證")
+                            return
+                        }
+                        fromdata.append("password", password)
+                        fromdata.append("name", name)
+                        fromdata.append("email", email)
+                        fromdata.append("recaptcha", token)
+
+                        fetch("/api/sign-up", { method: "POST", body: fromdata })
+                        .then(req => {
+                            return req.json()
+                        }).then(json => {
+                            console.log(json)
+                            if(json.code) {
+                                alert("驗證Email")
+                                location.pathname = "/"
+                            } else if (json.message === "Used") {
+                                alert("此Email或名稱已註冊過")
+                                reloadrecaptcha()
+                            } else {
+                                alert("註冊失敗")
+                                reloadrecaptcha()
+                            }
+                            
+                        })
                     })
+
+                    reloadrecaptcha()
                 }
             }
         ]

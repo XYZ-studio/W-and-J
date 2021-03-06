@@ -9,10 +9,14 @@ export default async(Init) => {
         formdata.append("password", session.data.Password)
         formdata.append("name", session.data.Account)
         let logindata = await (await fetch("/api/login", { method: "POST", body: formdata })).json()
-        console.log(logindata)
         if(logindata.code) {
             Init.login = true
-            Init.token = logindata.token
+            Init.token = logindata.data.token
+            Init.logindata = logindata.data
+            Init.likes = JSON.parse(logindata.data.likelist).map(Number)
+            if(!logindata.data.Verification) {
+                Init.addMessage("未驗證Email請驗證", "email-verification")
+            }
         }
     }
     Date.prototype.format = function(fmt) {
@@ -39,14 +43,11 @@ export default async(Init) => {
     if (url.length === 2 && !isNaN(Number(url[1]))) {
         Init.switch = true
         Init.a = Init.number - (Number(url[1]) - 1)
-        console.log(Init.a)
         Init.q = (Math.floor(Init.a / 10)) + ((Init.a % 10 !== 0) ? 1 : 0)
         await fetch(`/api/all-paste?q=0&a=${Init.q*10}`, { mode: "cors" })
             .then(async(req) => {
                 let json = await req.json()
                 Init.pastes = json
-
-                console.log(json, Init.q);
                 Init.switch = false
             })
 
@@ -56,11 +57,17 @@ export default async(Init) => {
                 Init.pastes = await req.json()
             });
     }
+    Init.$nextTick(
+        _ => {
+            $(function() { $("[data-toggle='tooltip']").tooltip({ html: true }); });
+        }
+    )
+    
 
-    document.onscroll = () => {
-        let scrollT = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollH = document.documentElement.scrollHeight || document.body.scrollHeight;
-        let clientH = document.documentElement.clientHeight || document.body.clientHeight;
+    document.getElementById("WandJ").onscroll = () => {
+        let scrollT = document.getElementById("WandJ").scrollTop;
+        let scrollH = document.getElementById("WandJ").scrollHeight;
+        let clientH = document.getElementById("WandJ").clientHeight;
         if (scrollT > scrollH - clientH - 10) {
             if (Init.number >= Init.q * 10 + 10) {
                 Init.q++;
@@ -68,6 +75,9 @@ export default async(Init) => {
                     .then(async(req) => {
                         let json = await req.json()
                         Init.pastes = Init.pastes.concat(json)
+
+                        
+
                     })
             }
         }
@@ -77,25 +87,25 @@ export default async(Init) => {
     (async() => {
         while (1) {
 
-            let pastearray = Init.pastes.map(x => x.Id)
-            if (!Init.switch) {
-                try {
-                    await fetch("/api/all-paste?q=0", { mode: "cors" })
-                        .then(async(req) => {
-                            let json = await req.json()
-                            for (let i = json.length - 1; i >= 0; i--) {
-                                if (!pastearray.includes(json[i].Id)) {
-                                    Init.pastes.unshift(json[i])
-                                    Init.number++;
-                                }
-                            }
-                        })
-                } catch (error) {
+            // let pastearray = Init.pastes.map(x => x.Id)
+            // if (!Init.switch) {
+            //     try {
+            //         await fetch("/api/all-paste?q=0", { mode: "cors" })
+            //             .then(async(req) => {
+            //                 let json = await req.json()
+            //                 for (let i = json.length - 1; i >= 0; i--) {
+            //                     if (!pastearray.includes(json[i].Id)) {
+            //                         Init.pastes.unshift(json[i])
+            //                         Init.number++;
+            //                     }
+            //                 }
+            //             })
+            //     } catch (error) {
 
-                }
+            //     }
 
-            }
-            $(function() { $("[data-toggle='tooltip']").tooltip({ html: true }); });
+            // }
+            $(function() { $("[data-toggle='tooltip']").tooltip({ html: true }); })
             await sleep(3000)
         }
     })();

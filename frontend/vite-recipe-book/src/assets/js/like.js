@@ -1,7 +1,11 @@
 export default async(like, id) => {
+    console.log(like.likes)
     let number = like.number - id
     if (!like.login) {
         like.addMessage("先登入喔")
+        return
+    } else if (!like.logindata.Verification) {
+        like.addMessage("Email先驗證喔")
         return
     }
     if (!like.likes.includes(id)) {

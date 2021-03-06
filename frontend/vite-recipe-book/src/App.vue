@@ -1,6 +1,6 @@
 <template>
   <div id="WandJ">
-
+    <br/>
     <div class="header">
       <div class="title">W and J靠北網</div>
       <a href="/login">
@@ -11,10 +11,8 @@
     </div>
 
     <div class="content">
-      <div class="add-paste" v-if="login">
+      <div class="add-paste" v-if="login && logindata.Verification">
         <input v-model="title" placeholder="標題" />
-
-        <input placeholder="暱稱" v-model="author" />
 
         <textarea
           v-model="text"
@@ -39,6 +37,7 @@
         </div>
 
         <div class="paste-q">目前{{ number }}篇文章</div>
+        <br/>
       </div>
 
       <div class="pastes">
@@ -102,6 +101,7 @@
               @click="like(i.Id)"
               data-toggle="tooltip"
               :data-original-title="`<h5>${i.Likenumber}個讚</h5>`"
+
             >
               <div class="heart">
                 <div class="heart1"></div>
@@ -142,6 +142,10 @@
           </div>
 
           <div v-if="i.type =='message'">
+            {{ i.message }}
+          </div>
+
+          <div v-if="i.type =='email-verification'">
             {{ i.message }}
           </div>
 
@@ -190,7 +194,8 @@ html, body, #WandJ, #app
   width: 100%
   margin: 0px
   padding: 0px
-  background-color: #131415
+  height: 100%
+  position: relative
   font-family:'SentyTEA'
   color: #ffffff
   max-width: 100%
@@ -202,6 +207,22 @@ html, body, #WandJ, #app
     background-color: #202225
     border-radius: 20px
 
+#app
+  overflow-y: hidden
+#WandJ
+  overflow-y: auto
+
+#app:before
+  background-image: url(./assets/background.jpg)
+  background-size: cover
+  opacity: 1
+  height: 100%
+  position: absolute
+  left: 0
+  right: 0
+  content: ""
+
+
 .schedule
   width: 180px
   height: 5px
@@ -212,4 +233,5 @@ html, body, #WandJ, #app
     background-color: rgb(200,200,200)
     border-radius: 20px
     height: 5px
+
 </style>

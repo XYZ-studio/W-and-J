@@ -20,7 +20,6 @@ export default (Post) => {
 
         Post.switch = true
         let id = Post.addMessage("上傳中", "download")
-        let author = (Post.author === "") ? "匿名發言者" : Post.author
         let xhr = new XMLHttpRequest();
         let formdata = new FormData()
         let files = null
@@ -31,25 +30,34 @@ export default (Post) => {
         }
 
         xhr.open("post",
-         `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&author=${author}&files=${files}`, 
+         `/api/add-paste?title=${Post.title}&content=${encodeURIComponent(Post.text)}&files=${files}`, 
          true
         )
         xhr.setRequestHeader("Token", Post.token)
         xhr.onload = async(e) => {
-            let json = JSON.parse(xhr.responseText)
-            if (!json.code) {
-                Post.addMessage(json.message)
-            } else {
+            try {
+                let json = JSON.parse(xhr.responseText)
+                if (!json.code) {
+                    Post.addMessage(json.message)
+                } else {
+                    Post.pastes.unshift(json.data)
+                    Post.scheduleswitch = false
+                    Post.text = ""
+                    Post.title = ""
+                    file.value = ""
+                    Post.number++
+                    Post.schedulelen = "width: 0px"
+                }
+    
+                Post.modMessage(id, "上傳完畢")
+                Post.switch = false 
+            } catch (error) {
                 Post.scheduleswitch = false
-                Post.text = ""
-                Post.title = ""
-                Post.author = ""
-                file.value = ""
                 Post.schedulelen = "width: 0px"
+                Post.modMessage(id, "上傳錯誤")
+                Post.switch = false
             }
-            console.log(json)
-            Post.modMessage(id, "上傳完畢")
-            Post.switch = false
+
         }
         xhr.upload.onprogress = (e) => {
             Post.schedulelen = `width: ${(e.loaded / e.total)*180}px`

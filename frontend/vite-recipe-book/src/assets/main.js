@@ -11,7 +11,6 @@ export default {
         return {
             textheigth: "height: 50px;",
             filepath: "",
-            author: "",
             pastes: [],
             q: 0,
             title: "",
@@ -29,7 +28,8 @@ export default {
             messages: [],
             messagenumber: 0,
             login: false,
-            token:null
+            token:null,
+            logindata:null
         }
     },
     components: {
@@ -92,7 +92,6 @@ export default {
         (async() => {
             for (let i = 0; i < 10; i++) {
                 let number = (this.a > this.number) ? this.number : this.a
-                console.log(number)
                 if (document.querySelector(`#WandJ > div.content > div.pastes > div:nth-child(${number})`) !== null) {
                     document.querySelector(`#WandJ > div.content > div.pastes > div:nth-child(${number})`).scrollIntoView()
                     break
