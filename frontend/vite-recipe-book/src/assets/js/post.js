@@ -25,8 +25,14 @@ export default (Post) => {
         let files = null
         for (let i of file.files) {
             console.log(i.name, i)
-            formdata.append(i.name, i)
-            files = true
+
+            if (/.[(jpg)(png)(JPEG)(jpeg)(JPG)(PNG)(GIF)(gif)]$/.test(i.name)) {
+                formdata.append(i.name, i)
+                files = true
+            } else {
+                Post.addMessage(`${i.name}很像不是圖片?`)
+            }
+            
         }
 
         xhr.open("post",

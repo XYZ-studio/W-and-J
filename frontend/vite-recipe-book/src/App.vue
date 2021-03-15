@@ -92,10 +92,6 @@
           </div>
 
           <div class="options">
-            <div class="leave_comments">
-              <div class="text">留言</div>
-            </div>
-
             <div
               :class="!likes.includes(i.Id) ? 'like tooltip-test' : 'like1 tooltip-test'"
               @click="like(i.Id)"

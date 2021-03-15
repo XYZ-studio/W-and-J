@@ -29,6 +29,10 @@ html, body, .main {
     color: rgb(255, 255, 255);
 }
 
+#title:hover {
+    color: rgb(255, 255, 255);
+}
+
 #name {
     position: absolute;
     transform: translate(-50%, 0);
